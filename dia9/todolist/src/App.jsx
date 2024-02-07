@@ -26,12 +26,26 @@ function App() {
    // Estado para controlar si se está cargando o no
    const [loading, setLoading] = useState(true);
 
-   useEffect(() => {
-      setTimeout(() => {
-         fetchData();
-      }, 2000);
-   }, []);
+   // Hook useEffect, trabaja los estados de mi APP.
+// 1. Cuando se crea el componente
+// 2. Cuando se re-renderiza el componente
+// 3. Cuando se elimina el componente
 
+// ComponentDidMount()
+useEffect( ()=> {
+   console.log("Cargue mi componente App.jsx");
+ 
+   // setTimeout es una funciòn que demora la ejecución de neustro codigo
+   // parametro 1: la función
+   // parametro 2: el tiempo
+   // ej: setTimeout( func, tiempo) ;
+   setTimeout( ()=> {
+     fetchData();
+   } , 2000);
+ 
+ }, []) // se ejecuta cuanda carga el componente por primera vez
+ 
+ 
    const fetchData = async () => {
       const response = await fetch("./db/datos.json");
 
