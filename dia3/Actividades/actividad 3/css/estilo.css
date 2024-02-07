@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-family:Impact;
+}
+section{
+    height:50vh;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+/*estilos para la segunda sección*/
+section:nth-child(2){
+    justify-content: space-evenly; /*los elementos se distribuirán de manera uniforme a lo largo del eje principal del contenedor, con espacios iguales entre ellos y en los extremos. */
+}
+.cuadro{
+    border:1px solid black;
+    background-color:black;
+    width:248px;
+    height:248px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+section:nth-child(1) .cuadro{
+    width:298px;
+    height:298px;
+}
+p{
+    text-align:center;
+    color:white;
+    mix-blend-mode:difference;
+    font-size:2em;
+}
+.control{
+    width:250px;
+}
+input{
+    display:block;
+    width:100%;
+    margin-top:10px;
+}
+
+
+.button-container {
+    display: flex;
+    justify-content: center;
+  }
+
+button{
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px;
+}
+
+
+.circle{
+    width: 80px;
+    height: 80px;
+    border-radius: 50px;
+    margin: 20px;
+}
+
+.lista-colores{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    list-style-type: none;
+}
+
+li{
+    padding: 60px;
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    cursor: pointer;
+}

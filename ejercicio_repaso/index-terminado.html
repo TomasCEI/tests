@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Actividad 3 RGB</title>
+      <link rel="stylesheet" href="css/estilo.css" />
+      <script defer src="js/color-picker.js"></script>
+   </head>
+
+   <body>
+      <style>
+         .color-circle {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+         }
+         .color-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+         }
+         .delete-btn {
+            margin-left: 10px;
+            cursor: pointer;
+         }
+      </style>
+      <div>
+         <input type="range" min="0" max="255" value="0" class="control" /> R
+         <br />
+         <input type="range" min="0" max="255" value="0" class="control" /> G
+         <br />
+         <input type="range" min="0" max="255" value="0" class="control" /> B
+         <br />
+         <button id="saveColor">Guardar Color</button>
+         <button id="clearList">Borrar Lista</button>
+      </div>
+      <div>
+         <p class="colorCode"></p>
+         <div class="cuadro" style="width: 100px; height: 100px"></div>
+      </div>
+      <ul id="colorList"></ul>
+   </body>
+</html>

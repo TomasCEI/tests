@@ -1,0 +1,12 @@
+[
+   {
+      "id": 1,
+      "tarea": "programar",
+      "isCompletada": true
+   },
+   {
+      "id": 2,
+      "tarea": "estudiar",
+      "isCompletada": false
+   }
+]

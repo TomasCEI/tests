@@ -1,0 +1,43 @@
+*{
+    margin:0;
+    padding:0;
+}
+body{
+    font-family:Impact;
+}
+section{
+    height:50vh;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+section:nth-child(2){
+    justify-content: space-evenly;
+}
+.cuadro{
+    border:1px solid black;
+    background-color:black;
+    width:248px;
+    height:248px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+}
+section:nth-child(1) .cuadro{
+    width:298px;
+    height:298px;
+}
+p{
+    text-align:center;
+    color:white;
+    mix-blend-mode:difference;
+    font-size:2em;
+}
+.control{
+    width:250px;
+}
+input{
+    display:block;
+    width:100%;
+    margin-top:10px;
+}

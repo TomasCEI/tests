@@ -1,0 +1,19 @@
+.todolist .completada {
+   text-decoration: line-through;
+}
+
+.todolist .btnDelete:hover {
+   background: red;
+   color: white;
+}
+
+.todolist .item {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   margin-bottom: 5px;
+}
+
+.todolist .item span {
+   cursor: pointer;
+}
