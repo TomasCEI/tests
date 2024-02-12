@@ -7,13 +7,13 @@ export const Hero = () => {
    return (
       <section className="Hero">
          <h2 className="Hero-h2">
-            <Logo {...hero} />
+            <CallToAction {...hero} />
          </h2>
       </section>
    );
 };
 
-const Logo = (props) => {
+const CallToAction = (props) => {
    const { href, src, title } = props;
    return (
       <a href={href} className="Hero-a">
