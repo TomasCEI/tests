@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Home from "./components/Home";
 
 import UserList from "./components/UserList";
-import ListaPersonajes from "./components/ListaPersonajes";
+import PersonajesLista from "./components/PersonajesLista";
 
 /**
  *  simulamos un layout con navegación
@@ -33,7 +33,7 @@ function App() {
          {paginaActiva === "home" && <Home />}
 
          {paginaActiva === "users" && <UserList />}
-         {paginaActiva === "listaPersonajes" && <ListaPersonajes />}
+         {paginaActiva === "listaPersonajes" && <PersonajesLista />}
       </div>
    );
 }

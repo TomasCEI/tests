@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { DisplayMsg } from "./DisplayMsg";
 
-const CharacterModal = ({ handleOpen, id, image, name, gender, species, status, location, origin, episode, type }) => {
+const PersonajesModal = ({ handleOpen, id, image, name, gender, species, status, location, origin, episode, type }) => {
    const [episodes, setEpisodes] = useState([]);
 
    useEffect(() => {
+      // extra el id (último item) de cada episodio rickandmortyapi.com/api/episode/1
       const episodeIds = episode.map((epi) => epi.split("/").pop());
       console.log("episodeIds", episodeIds);
       getEpisodesData(episodeIds.splice(0, 10));
@@ -106,7 +107,7 @@ const CharacterModal = ({ handleOpen, id, image, name, gender, species, status, 
    );
 };
 
-export const CharacterCard = (props) => {
+export const PersonajesTarjeta = (props) => {
    const [isOpen, setIsOpen] = useState(false);
 
    // deconstruyo en linea aparte para seguir teniendo el objeto "props" para CharacterModal
@@ -117,12 +118,12 @@ export const CharacterCard = (props) => {
    };
    return (
       <>
-         {isOpen && <CharacterModal handleOpen={handleOpen} {...props} />}
+         {isOpen && <PersonajesModal handleOpen={handleOpen} {...props} />}
 
          <div className="userCard" onClick={handleOpen}>
             <h3>{name}</h3>
             <span className="episodeCountIcon">
-               <span class="material-symbols-outlined">video_library</span>
+               <span className="material-symbols-outlined">video_library</span>
                <span>{episode.length}</span>
             </span>
 
