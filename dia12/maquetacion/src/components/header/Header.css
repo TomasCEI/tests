@@ -1,3 +1,28 @@
 .Header {
-   background: green;
+   /* background: green; */
+   display: flex;
+   justify-content: space-around;
+   padding: 25px;
+   align-items: center;
+}
+
+.Header-h1 {
+}
+.Header-logo {
+   padding: 10px;
+   /* max-width: 100px; */
+}
+.Header-img {
+   width: 100px;
+}
+.Header-nav {
+}
+.Header-ul {
+   display: flex;
+   gap: 10px;
+}
+
+.Header-li {
+   /* Set string to uppercase */
+   text-transform: uppercase;
 }

@@ -4,8 +4,13 @@ import { pixar } from "../../db/db";
 export const Hero = () => {
    const { hero } = pixar;
 
+   const inlineStyles = {
+      backgroundImage: `url(${hero.background})`,
+      backgroundSize: "cover",
+   };
+
    return (
-      <section className="Hero">
+      <section className="Hero" style={inlineStyles}>
          <h2 className="Hero-h2">
             <CallToAction {...hero} />
          </h2>
