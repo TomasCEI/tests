@@ -1,0 +1,80 @@
+.Grid{
+    width: 90%;
+    /* background-color: red; */
+    margin: auto;
+    padding:1rem;
+
+    display: grid;
+    grid-template-columns: repeat( auto-fit , minmax( 200px , 1fr) );
+    gap:1rem;
+}
+.Grid-img{
+    background-color: orange;
+    border-radius: 1rem;
+    background: #e0e0e0;
+    box-shadow:  12px 12px 24px #cccccc,
+                -12px -12px 24px #f4f4f4;
+
+    cursor: pointer;
+    transition: all .5s ease;
+}
+.Grid-img:hover{
+    transform: scale(.95);
+}
+.Grid-img:active{
+    transform: scale(1.05);
+}
+.Lightbox{
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 2;
+
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+
+    /* display: none; */
+    transition: all .5s ease;
+    opacity: 0;
+    pointer-events: none;
+}
+.Lightbox.isVisible{
+    /* display: flex; */
+    opacity: 1;
+    pointer-events: auto;
+}
+.Lightbox-btn{
+    width: 3rem;
+    height: 3rem;
+    padding: .6rem;
+    background-color: red;
+    border-radius: 1rem;
+    background: #e0e0e0;
+    box-shadow:  12px 12px 24px #cccccc,
+                -12px -12px 24px #f4f4f4;
+    cursor: pointer;
+    transition: all .5s ease;
+}
+.Lightbox-btn:hover{
+    transform: scale(.9);
+}
+.Lightbox-btn:active{
+    transform: scale(1.05);
+}
+.Lightbox-img{
+    width: 90%;
+    max-width: 800px;
+    height: 50vh;
+    background-color: orange;
+    border-radius: 1rem;
+    background: #e0e0e0;
+    box-shadow:  12px 12px 24px #cccccc,
+                -12px -12px 24px #f4f4f4;
+}

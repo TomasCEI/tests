@@ -1,0 +1,70 @@
+.Slider{
+    width: 80%;
+    max-width: 37.5rem;
+    /* background-color: lightgrey; */
+    margin: auto;
+
+    position: relative;
+}
+.Slider-container{
+    /* background-color: red; */
+}
+.Slider-img{
+    min-height: 8rem;
+    /* background-color: aqua; */
+
+    position: absolute;
+    top:0;
+
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+.Slider-img:nth-child(1){
+    position: static;
+}
+.Slider-img.isVisible{
+    opacity: 1;
+}
+.Slider-next{
+    width: 4rem;
+    height: 4rem;
+    background-color: lime;
+    position: absolute;
+    top: calc( 50% - 2rem );
+    right: 0;
+
+}
+.Slider-prev{
+    width: 4rem;
+    height: 4rem;
+    background-color: lime;
+    position: absolute;
+    top: calc( 50% - 2rem );
+    left: 0;
+}
+.Slider-points{
+    width: 100%;
+    /* background-color: gold; */
+    
+    position: absolute;
+    bottom: 1rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    gap:1rem;
+}
+.Slider-point{
+    /* background-color: blueviolet; */
+}
+.Slider-btn{
+    width: 1.5rem;
+    height: 1.5rem;
+    background-color: grey;
+    border-radius: 50%;
+    transition: background-color .5s ease;
+}
+.Slider-btn.isSelected{
+    background-color: lime;
+}

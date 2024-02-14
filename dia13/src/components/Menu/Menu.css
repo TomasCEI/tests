@@ -1,0 +1,30 @@
+.Header {
+   /* logo nav btn */
+   display: flex;
+   justify-content: space-between;
+}
+
+.Header-ul {
+   display: flex;
+   gap: 1rem;
+}
+.Header-li {
+   background-color: orange;
+}
+.Header-btn {
+   /* pantalla grande sin btn */
+   display: none;
+}
+
+/* Pantallas pequeñas */
+@media (max-width: 600px) {
+   .Header-nav {
+      display: none;
+   }
+   .Header-nav.isVisible {
+      display: block;
+   }
+   .Header-btn {
+      display: block;
+   }
+}

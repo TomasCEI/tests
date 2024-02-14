@@ -1,0 +1,37 @@
+.Acordeon {
+   width: 90%;
+   /* background-color: orange; */
+   margin: auto;
+   padding: 1rem 1rem;
+
+   display: flex;
+   flex-flow: column;
+   justify-content: center;
+   align-items: center;
+   gap: 1rem;
+
+   border-radius: 1rem;
+   background: #e0e0e0;
+   box-shadow: 0.8rem 0.8rem 2rem #bebebe, -0.8rem -0.8rem 2rem #ffffff;
+}
+.Acordeon-container {
+   width: 100%;
+   background-color: aqua;
+   padding: 1rem;
+
+   border-radius: 1rem;
+   background: #e0e0e0;
+   box-shadow: 0.8rem 0.8rem 2rem #bebebe, -0.8rem -0.8rem 2rem #ffffff;
+}
+.Acordeon-h2 {
+}
+.Acordeon-p {
+   /* display: none; */
+   height: 0;
+   overflow: hidden;
+   transition: height 0.2s ease;
+}
+.Acordeon-p.isVisible {
+   /* display: block; */
+   height: 5rem;
+}

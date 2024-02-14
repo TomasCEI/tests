@@ -1,0 +1,52 @@
+.Tabs{
+    width: 90%;
+    /* background-color: red; */
+    margin: 2rem auto;
+
+    padding: 1rem;
+    border-radius: 1rem;
+    background: #e0e0e0;
+    box-shadow:  1rem 1rem 2rem #bebebe,
+                -1rem -1rem 2rem #ffffff;
+}
+.Tabs-ul{
+    /* background-color: lime; */
+    margin: 0 0 2rem;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+}
+.Tabs-li{}
+.Tabs-btn{
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+    background: #e0e0e0;
+    box-shadow:  1rem 1rem 2rem #bebebe,
+                -1rem -1rem 2rem #ffffff;
+}
+.Tabs-btn.isActive{
+    background-color: gold;
+}
+.Tabs-container{
+    /* background-color: aqua; */
+
+    position: relative;
+}
+.Tabs-p{
+    width: 100%;
+    min-height: 100px;
+    position: absolute;
+    top:0;
+
+    opacity: 0;
+    transition: all .5s ease;
+}
+.Tabs-p.Static{
+    position: static;
+}
+.Tabs-p.isActive{
+    position: static;
+    opacity: 1;
+}
