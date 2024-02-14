@@ -42,7 +42,7 @@ useEffect( ()=> {
    setTimeout( ()=> {
      fetchData();
    } , 2000);
- 
+
  }, []) // se ejecuta cuanda carga el componente por primera vez
  
  
