@@ -1,0 +1,33 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.Header-ul {
+    display: flex;
+    gap: 1rem;
+}
+
+.Header-li {
+    background-color: lightgreen;
+}
+
+.Header-btn {
+    display:none;
+}
+
+@media (max-width: 500px){
+    .Header-nav{
+        display:none;
+    }
+    .Header-nav.isVisible {
+        display:block;
+    }
+
+    .Header-btn {
+        display:block;
+    }
+}
+
+

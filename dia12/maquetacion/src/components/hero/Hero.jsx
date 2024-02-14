@@ -5,8 +5,7 @@ export const Hero = () => {
    const { hero } = pixar;
 
    const inlineStyles = {
-      backgroundImage: `url(${hero.background})`,
-      backgroundSize: "cover",
+      backgroundImage: `url(${hero.background})`
    };
 
    return (

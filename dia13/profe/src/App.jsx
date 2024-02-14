@@ -48,7 +48,7 @@ const Tabs = () => {
    };
 
    return (
-      <div>
+      <section>
          <div>
             <button onClick={() => handleTabClick(0)}>Tab 1</button>
             <button onClick={() => handleTabClick(1)}>Tab 2</button>
@@ -59,7 +59,7 @@ const Tabs = () => {
             {activeTab === 1 && <div>Contenido de la pestaña 2</div>}
             {activeTab === 2 && <div>Contenido de la pestaña 3</div>}
          </div>
-      </div>
+      </section>
    );
 };
 

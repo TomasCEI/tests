@@ -83,6 +83,7 @@ export const pixar = {
       ],
       terms: [
          {
+            id: uuidv4(),
             href: "https://www.pixar.com/privacy-policy",
             text: "Privacy Policy",
          },

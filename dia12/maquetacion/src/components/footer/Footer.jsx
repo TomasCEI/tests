@@ -8,13 +8,13 @@ const Footer = () => {
    return (
       <footer className="Footer">
          <div className="Footer-socials">
-            {socials.map((item) => (
-               <Social key={item.id} {...item} />
+            {socials.map((item, index) => (
+               <Social key={index} {...item} />
             ))}
          </div>
          <div className="Footer-terms">
-            {terms.map((item) => (
-               <Term key={item.id} {...item} />
+            {terms.map((item, index) => (
+               <Term key={index} {...item} />
             ))}
          </div>
          <div>
@@ -38,6 +38,7 @@ const Social = (props) => {
 
 const Term = (props) => {
    const { href, text } = props;
+   //console.log(props);
    return (
       <a href={href} className="Footer-term">
          {text}
