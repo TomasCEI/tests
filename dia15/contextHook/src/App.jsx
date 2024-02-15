@@ -9,13 +9,19 @@ function App() {
 
   return (
     <>
-      {/* <h3>Use Ref (Contador)</h3>
-      <ContadorRef /> */}
-      {/* <h3>Focus Ref (Manipulación del Dom)</h3>
-      <FocusRef /> */}
-
-      <h3>UseContext Login</h3>
+     <h3>UseContext Login</h3>
         <LoginUseContext />
+        <hr />
+
+      <h3>useRef vs useState</h3>
+      <ContadorRef />
+      <hr />
+
+      <h3>Focus Ref (Manipulación del Dom)</h3>
+      <FocusRef />
+      <hr />
+
+     
     </>
   )
 }

@@ -9,7 +9,6 @@ const LoginUseContext = () => {
 
     return (
             <LoginContext.Provider value={[logIn, setLogin]}>
-                El usuario esta {logIn? "Si":"No"}
                 <Nav  />
             </LoginContext.Provider>
     )
@@ -18,9 +17,13 @@ const LoginUseContext = () => {
 export default LoginUseContext;
 
 const Nav = ()=>{
+    const [logIn, setLogin] = useContext(LoginContext);
     return (
         <section>
-        <nav> soy nav </nav>
+        <nav  style={{ backgroundColor:'lightblue', display:"flex", justifyContent:"space-between", alignItems:'center'}}>
+            <h3>Nav</h3> 
+            <strong>{logIn? "Bienvenido":"Logged Out"}</strong> 
+        </nav>
         <LoginButton />
         </section>
     )
@@ -36,7 +39,7 @@ const LoginButton = () => {
         setLogin(!logIn);
     }
     return (<>
-            Estas logueado? {logIn?"Si":"No"}<br></br>
-            <button onClick={handleLogin}>Login/Logout</button>
+            Estas logueado? <strong>{logIn?"Si":"No"}</strong><br />
+            <button onClick={handleLogin}>{logIn?"Log Out":"Log In"}</button>
         </>)
 }
