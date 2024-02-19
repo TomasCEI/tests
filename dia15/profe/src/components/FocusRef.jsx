@@ -19,7 +19,7 @@ const FocusRef = () => {
   const scrollToBottom = () => {
     nameRef.current.scrollIntoView({ behavior: "smooth" });
   }
-  
+  l
   return (
     <section className="box">
 
