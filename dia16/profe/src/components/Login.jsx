@@ -1,6 +1,8 @@
 import {useRef, useState, useEffect } from 'react';
 import './Login.css';
 
+// ej: https://netflix-proyecto.vercel.app/app/main
+
 const Login = () => {
 
     // 3. probando use ref
