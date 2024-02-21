@@ -16,6 +16,7 @@ console.clear();
 // - Se pueden usar para validar, modificar o procesar la petición y la respuesta.
 
 function timeLog(req, res, next){
+    console.log(req);
     console.log("Time:", Date.now());
     next();
 }
@@ -31,7 +32,7 @@ const middleWare2 = function (req, res, next) {
     console.log("Registro Guardado 2");
     next();
 }
-app.use (middleWare1, middleWare2);
+app.use (middleWare2, middleWare1 );
 
 // ejemplo 3 (obtener información del Request)
 app.use("/admin", (req, res, next) => {
@@ -44,14 +45,11 @@ app.use("/admin", (req, res, next) => {
 });
 
 
-
-
-
 app.get("/", (req, res)=> {
     res.send("TERMINE");
 })
 
 
 app.listen(PORT, ()=> {
-    console.log(`Server is running on port ${PORT}` );
+    console.log(`Server is running on port http://localhost:${PORT}` );
 })
