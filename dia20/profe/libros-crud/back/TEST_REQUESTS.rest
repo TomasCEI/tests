@@ -1,0 +1,54 @@
+#Probar distinos requests , separarlos con ###
+
+# --------------------------------------------------------
+#                   API LIBROS v1
+# --------------------------------------------------------
+
+# Mis variables:
+@baseUrl = http://localhost:8080/api/v1
+
+# ------------------------------------------------------
+#                  Libros
+# ------------------------------------------------------
+
+
+### (GET) Todos los Libros
+GET {{baseUrl}}/libros
+content-type : application/json
+
+### (POST) Crear un libro
+POST {{baseUrl}}/libros
+content-type : application/json
+
+{
+        "titulo": "Nuevo título",
+        "autor": "Nuevo autor",
+        "categoria": "categoría"
+}
+
+### Actualizar Libro (id = 25)
+
+PUT {{baseUrl}}/libros/25
+content-type : application/json
+
+{
+        "id": 25,
+        "titulo": "Nuevo título2",
+        "autor": "Nuevo autor2",
+        "categoria": "categoría2"
+}
+
+### Eliminar Libro (id = 25)
+
+DELETE {{baseUrl}}/libros/25
+
+
+
+# ------------------------------------------------------
+#                  Categorías
+# ------------------------------------------------------
+
+
+# ------------------------------------------------------
+#                  Autores
+# ------------------------------------------------------
