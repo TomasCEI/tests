@@ -9,7 +9,7 @@ const BookAdd = () => {
   //   console.log(JSON.stringify(libro));
   //   // Aquí puedes enviar la solicitud al backend para editar el libro con el ID proporcionado.
   // };
-  const emptyBook= {titulo:'', autor:'', categoria:''}
+  const emptyBook= {id: 0, titulo:'', autor:'', categoria:''}
 
   return (
     <>
