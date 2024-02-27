@@ -2,7 +2,6 @@ import { Router} from 'express';
 import {getAllLibros, createLibro, getLibroById, updateLibro, deleteLibro} from '../controllers/libros.controller.js';
 
 
-
 const router = Router();
 
 // todos los libros
@@ -13,6 +12,10 @@ router.post(    "/libros",      createLibro);   // create
 router.get(     "/libros/:id",  getLibroById);  // read
 router.put(     "/libros/:id",  updateLibro);   // update
 router.delete(  "/libros/:id",  deleteLibro);   // delete
+
+// http://localhost:8000/libros/33/getLibros?id=33&orden=asc&q=autor
+// urlParameter :id
+// queryParameter ?id
 
 
 // // todos

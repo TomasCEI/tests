@@ -13,9 +13,9 @@ console.clear();
 // con origen para 2 dominios
 
 // Uso de MiddleWares
-app.use(cors());
+app.use(cors()); // Cross-Origin Resource Sharing
 app.use(setHeaders);
-app.use(express.json()); // procesa el json body para leer con req.body
+app.use(express.json()); // procesa el json body para leer con req.body()
 app.use(logger);
 
 // Rutas
