@@ -10,6 +10,10 @@ const responseLibros={
     msg: ""
 };
 
+const helperCleanString = (str) => {
+    return str.toString().trim().toLowerCase();
+}
+
 // obtener todos los libros
 export const getAllLibros = (req, res) => {
     responseLibros.data=listaLibros; // vuelvo a cargar la lista de libros
@@ -52,14 +56,14 @@ export const removeLibro = (req, res) => {
     const idLibro=req.params.id;
 
      // Buscamos el índice del libro en la lista de libros
-     const index = listaLibros.findIndex(libro => libro.id === idLibro);
+     const index = listaLibros.findIndex(libro => libro.id == idLibro);
 
     if (index !== -1) {
         // Si encontramos el libro, lo eliminamos de la lista de libros
         listaLibros.splice(index, 1);
 
         // Actualizamos la respuesta para enviar
-        responseLibros.data = listaLibros;
+        responseLibros.data = [];
         responseLibros.msg = `Libro con ID ${idLibro} eliminado`;
         responseLibros.cant = listaLibros.length;
 
@@ -69,8 +73,6 @@ export const removeLibro = (req, res) => {
         responseLibros.msg =`No se encontró ningún libro con el ID ${idLibro}`;
         res.status(404).send(responseLibros);
     }
-
-    res.send("eliminar libro en desarrollo");
 }
 
 export const updateLibro = (req, res) => {
@@ -99,8 +101,6 @@ export const updateLibro = (req, res) => {
         responseLibros.msg =`No se encontró ningún libro con el ID ${idLibro}`;
         res.status(404).send(responseLibros);
     }
-
-    res.send("actualizar libro en desarrollo");
 }
 
 
@@ -109,7 +109,12 @@ export const updateLibro = (req, res) => {
 
 export const getLibrosByAuthor = (req, res) => {
     const author = req.params.author; // Obtener el autor de los parámetros de la solicitud
-    const librosPorAutor = listaLibros.filter(libro => libro.autor === author); // Filtrar los libros por autor
+
+    // Filtrar los libros por autor (exacto) ej: "Gabriel García Márquez" == "gabriel garcia marquez"
+    const librosPorAutor = listaLibros.filter(libro => helperCleanString(libro.autor) == helperCleanString(author)); 
+
+    // Filtrar los libros por autor (incluye) ej: "Gabriel García Márquez" == "gabri"
+    // const librosPorAutor = listaLibros.filter(libro => helperCleanString(libro.autor).includes(author));
 
     if (librosPorAutor.length > 0) {
         res.status(200).send({
@@ -139,5 +144,4 @@ export const getLibrosByCategorie = (req, res) => {
     //     res.status(404).send(responseLibros);
     // }
     res.status(200).send("getLibrosByCategorie en desarrollo")
-
 }
