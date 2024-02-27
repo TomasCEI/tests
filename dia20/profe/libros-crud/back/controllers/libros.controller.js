@@ -123,3 +123,21 @@ export const getLibrosByAuthor = (req, res) => {
     }
 
 }
+
+export const getLibrosByCategorie = (req, res) => {
+    // const author = req.params.author; // Obtener el autor de los parámetros de la solicitud
+    // const librosPorAutor = listaLibros.filter(libro => libro.autor === author); // Filtrar los libros por autor
+
+    // if (librosPorAutor.length > 0) {
+    //     res.status(200).send({
+    //         data: librosPorAutor,
+    //         msg: `Libros del autor: ${author}`,
+    //         cant: librosPorAutor.length
+    //     });
+    // } else {
+    //     responseLibros.msg =`No se encontró ningún libro con el autor: ${author}`;
+    //     res.status(404).send(responseLibros);
+    // }
+    res.status(200).send("getLibrosByCategorie en desarrollo")
+
+}
