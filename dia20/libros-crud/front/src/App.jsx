@@ -27,7 +27,7 @@ function App() {
   )
 }
 
-
+// plantilla de toda nuestra APP
 function Layout(){
   return (
     <>

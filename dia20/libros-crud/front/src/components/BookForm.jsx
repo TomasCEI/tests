@@ -1,45 +1,67 @@
 import {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom'; // redirige a donde querramos
+import { easyFetch } from '../helpers/utils';
 
-const BookForm = ({libro})=>{
+const BookForm = ({libro, setEditarLibro})=>{
 
     const [formData, setFormData] = useState(libro);
     const {titulo, autor, categoria, id} = formData;
 
+    const navegador = useNavigate();
+
+    /* no fue necesario ya que utiliamos la prop key en el componente BookForm
+    useEffect( ()=> {
+        console.log("COMPONENT DID MOUNT!");
+    }, []);
 
     useEffect( ()=> {
-        setFormData(libro);
+        console.log("COMPONENT DID UPDATE! (LIBRO)");
+        //console.log("Ejecutando useEffect (x q cambiò libro)")
+        //setFormData(libro);
         //console.log("Libro es", libro);
         //console.log("FormData es", formData);
-    }, [libro])
+    }, [formData])
+    */
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        console.log("ENVIANDO EL FORMULARIO CON REACT!");
 
-        try{
-            const url="http://localhost:3000/API/v1/libros/"+id;
-            const response = await fetch(url, {
-                method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(formData)
-            } )
-
-            if(!response.ok){
-                throw new Error ("Hubo un problema al enviar los datos");
+    const handleCreateBook = async () => {
+        easyFetch({
+            url: "http://localhost:3000/API/v1/libros/",
+            method: 'POST', 
+            body: formData,
+            callback: (data) => {
+                console.log("EXITO CREADO!!! " , data);
+                // setEditarLibro(null); 
+                // irme a la página de ListaLibros
+                navegador("/lista");
             }
-
-            const responseData = await response.json();
-            console.log(responseData);
-
-
-        }catch (error){
-            console.log(error);
-        }
-
-
+        })
     }
+
+    const handleRemoveBook = async () => {
+        easyFetch({
+            url: "http://localhost:3000/API/v1/libros/"+id,
+            method: 'DELETE',
+            callback: (data) => {
+                console.log("EXITO ELIMINADO !!! " , data);
+                setEditarLibro(null); 
+            }
+        })
+    }
+
+    const handleUpdateBook = async () => {
+        easyFetch({
+            url: "http://localhost:3000/API/v1/libros/"+id,
+            method: 'PUT', 
+            body: formData,
+            callback: (data) => {
+                console.log("EXITO ACTUALIZADO !!! " , data);
+                setEditarLibro(null); 
+            }
+        })
+    }
+
+
 
     const handleInputChange = (e) => {
         const {name, value} = e.target; // obtengo del input el nombre y el valor
@@ -51,7 +73,7 @@ const BookForm = ({libro})=>{
 
     return (
         <>
-        <form onSubmit={handleSubmit} className="main-form">
+        <form className="main-form">
             <label>Nombre del Libro</label>
             <input 
                 type="text"
@@ -59,7 +81,7 @@ const BookForm = ({libro})=>{
                 name="titulo"
                 value={titulo}
                 placeholder="Ingrese título del libro"
-                onChange={ handleInputChange}
+                onChange={handleInputChange}
             /><br />
 
             <label>Autor del libro</label>
@@ -81,9 +103,18 @@ const BookForm = ({libro})=>{
                 placeholder="Ingrese la categoría del Libro"
                 onChange={handleInputChange}
             /><br />
-
-            <button type="submit">Guardar</button>
         </form>
+        {
+            // editando (id=XXX) o creando (id=0)
+            id ? (
+                <>
+                    <button onClick={handleUpdateBook}>Guardar</button>
+                    <button onClick={handleRemoveBook}>Eliminar</button>
+                </>
+            ) : (
+                <button onClick={handleCreateBook}>Crear Nuevo</button>
+            )
+        }
         </>
     )
 }

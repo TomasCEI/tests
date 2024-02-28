@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import BookForm from './BookForm';
+import { easyFetch } from '../helpers/utils';
 
 function BookList() {
   const [bookList, setBookList] = useState([]);
@@ -7,9 +8,10 @@ function BookList() {
 
   useEffect( ()=> {
     fetchLibros();
-  }, []);
+  }, [editarLibro]);
 
   const fetchLibros = async () => {
+    /*
     try {
       const url="http://localhost:3000/API/v1/libros";
       const response=await fetch(url);
@@ -23,6 +25,13 @@ function BookList() {
     } catch (error){
       console.error("tuviste un error: "+error);
     }
+    */
+   easyFetch({
+    url: "http://localhost:3000/API/v1/libros",
+    callback: (jsonData) => {
+      setBookList(jsonData.data);
+    }
+   })
   }
 
   const handleEditarLibro = (libro) => {
@@ -37,15 +46,15 @@ function BookList() {
         {
           bookList.map( libro => ( 
             <div className="card" key={libro.id}>
-            <h3>{libro.titulo}</h3>
-            <strong>Autor:</strong> {libro.autor}
-            <strong>Categoría:</strong> {libro.categoria}
-            <button onClick={()=>handleEditarLibro(libro)}>Editar</button>
+              <h3>{libro.titulo}</h3>
+              <strong>Autor:</strong> {libro.autor}
+              <strong>Categoría:</strong> {libro.categoria}
+              <button onClick={()=>handleEditarLibro(libro)}>Editar</button>
             </div>
           ))
         }
         </div>
-        {editarLibro && <BookForm libro={editarLibro} />}
+        {editarLibro && <BookForm key={editarLibro.id} libro={editarLibro} setEditarLibro={setEditarLibro} />}
       </>
 
     )
