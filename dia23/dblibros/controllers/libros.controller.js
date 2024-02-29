@@ -1,5 +1,5 @@
-import misDatos from '../db/datos.js'; // lista de libros para seed
-import {Libros} from '../db/sequelize.db.js'; // mis métodos de sequelizer
+import misDatos from '../db/seed.js'; // lista de libros para seed
+import { Libros } from '../db/sequelize.db.js'; // mis métodos de sequelizer
 
 
 const listaLibros = misDatos.libros;
