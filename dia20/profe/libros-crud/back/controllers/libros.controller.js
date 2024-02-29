@@ -49,7 +49,7 @@ export const addLibro = (req, res) => {
     responseLibros.data.push({id:newId, titulo, autor, categoria});
     responseLibros.msg="Libro agregado con éxito";
 
-    res.send(responseLibros);
+    res.status(201).send(responseLibros);
 }
 
 export const removeLibro = (req, res) => {

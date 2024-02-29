@@ -105,7 +105,17 @@ router.get("/categories", (req, res)=> {
 })
 
 
-
-
+// ----------------------------
+//      Rutas de error
+// ----------------------------
+router.all("*", (req, res, next)=> {
+    next({status: 404, msg: "Ruta no encontrada"});
+});
+router.use((err, req, res, next)=> {
+    console.log(err);
+    let {status, msg} = err;
+    status = status? status : 500; // 404 o 500
+    res.status(status).send({msg});
+});
 
 export default router;
