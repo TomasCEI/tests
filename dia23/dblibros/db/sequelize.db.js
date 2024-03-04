@@ -8,6 +8,19 @@ const sequelize = new Sequelize({
     storage: './db/datos.sqlite'
 });
 
+
+// Define models (tablas)
+// const Autor = sequelize.define('autor', {
+//     nombre: DataTypes.STRING
+//   })
+  
+//   // Modelo de Autor (extensión de Clase)
+//   class Autor extends Model {}
+//   Autor.init({
+//     nombre: DataTypes.STRING
+//   }, { sequelize, modelName: 'autor' });
+
+
 // Definir Modelos (tablas)
 export const Libros = sequelize.define('libros', {
     titulo: DataTypes.STRING, // DATE, INTEGER, NUMBER, BOOLEAN....

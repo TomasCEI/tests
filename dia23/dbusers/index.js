@@ -20,6 +20,7 @@ const sequelize = new Sequelize({
     storage: './db/datos.sqlite'
 });
 
+
 // Definir Modelos (tablas)
 const Users = sequelize.define('usuarios', {
     email: DataTypes.STRING, // DATE, INTEGER, NUMBER, BOOLEAN....
@@ -28,7 +29,7 @@ const Users = sequelize.define('usuarios', {
 })
 
 // Sincronizar mis modelos con mi DB (crear tablas en caso de que no existan)
-//sequelize.sync({ force: true }); // elimina y re-crea todas las tablas en cada reinicio
+// sequelize.sync({ force: true }); // elimina y re-crea todas las tablas en cada reinicio
 sequelize.sync({ alter: true }); // actualiza las columnas de las tablas si hay diferencias
 
 
@@ -64,13 +65,13 @@ app.put("/users/:id", async ( req, res) => {
 
 app.delete("/users/:id", async (req, res)=> {
     const user = await Users.findByPk(req.params.id);
-    if(user){
-        const userViejo=user;
-        await user.destroy();
-        res.json({ msg: "usuario eliminado correctamente", data: userViejo});
-    } else {
-        res.status(404).json({msg: "usuario no encontrado"});
-    } 
+
+    if(!user){  res.status(404).json({msg: "usuario no encontrado"}); return; }
+
+    const userViejo=user;
+    await user.destroy();
+    res.json({ msg: "usuario eliminado correctamente", data: userViejo});
+  
 })
 
 
