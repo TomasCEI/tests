@@ -37,10 +37,32 @@ export const getAllLibros = async (req, res) => {
     res.status(200).send(responseAPI);
 }
 
-export const createLibro = async(req, res) => {
-    delete req.body.id; // quito el id=0; que envío desde el front
-    const newBook = await Libros.create(req.body)
 
+
+export const createLibro = async(req, res) => {
+    // ejemplo sequelize
+    //delete req.body.id; // quito el id=0; que envío desde el front
+    //const newBook = await Libros.create(req.body)
+
+    // ejemplo MySQL
+    const {titulo, id_autor, cali=0, lanzamiento="", editorial="", precio=0, cant_vendidos=0, num_paginas=0 } = req.body;
+
+    if(titulo=="" || id_autor == 0){
+        responseAPI.msg="Error al crear libro";
+        responseAPI.status="error";
+        res.status(400).send(responseAPI);
+        return;
+    }
+
+    const sqlQuery= `INSERT INTO libros 
+    (libro, id_autor, calificacion, lanzamiento, editorial, precio, cant_vendidos, num_paginas) 
+    VALUES  libros
+    ('${titulo}', '${id_autor}', '${cali}', '${lanzamiento}', '${editorial}', '${precio}', '${cant_vendidos}', '${num_paginas}');`;
+
+
+    const [newBook, fields ] = await mysqlConn.query(sqlQuery);
+
+    // Nuestra respuesta para MySQL o Sequelize
     responseAPI.data=newBook;
     responseAPI.msg="Crear nuevo libro";
     responseAPI.status="ok";
@@ -92,4 +114,3 @@ export const deleteLibro = async(req, res) => {
     responseAPI.msg="Libro Eliminado";
     res.status(200).send(responseAPI);
 }
-
