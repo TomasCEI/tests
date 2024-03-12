@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon index.js",
-    "start": "set NODE_ENV=production && nodemon app.js",
+    "linux_start": "NODE_ENV=production nodemon app.js",
+    "win_start": "set NODE_ENV=production && nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
