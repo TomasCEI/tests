@@ -7,12 +7,15 @@ import { PORT, domain } from './config/config.js';
 import { timeLog } from './middlewares/logger.js';
 import {setHeaders} from './middlewares/setHeaders.js';
 
+import dotenv from 'dotenv'
+dotenv.config()
 
 import cors from 'cors'; // uso de CORS con librería externa
 import verifyCors from "./middlewares/verifyCors.js"; // configuración Manual
 
 const app = express();
 console.clear();
+
 
 
 /*
@@ -70,7 +73,11 @@ app.get("/", (req, res)=> {
     // order by title method 2
     //listaLibros.sort((a, b)=> a.titulo.localeCompare(b.titulo));
 
+    const ENV = process.env.NODE_ENV;
+    const NOMBRE= process.env.ENV_NAME;
     const homeHTML=`<h1>API de Libros</h1>
+        env: ${ENV} - ${NOMBRE}
+
         <ul>
             <li>Todos los Libros:           <a href="${fulldomain}/libros">${fulldomain}/libros</a></li>
             <li>Libro con id 3:             <a href="${fulldomain}/libros/3">${fulldomain}/libros/3</a></li>
