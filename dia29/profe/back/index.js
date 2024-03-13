@@ -7,7 +7,7 @@ import cors from 'cors'; // uso de cors mediante libreria externa
 
 
 const app = express();
-console.clear();
+//console.clear();
 
 // También puedes configurar CORS con métodos específicos y encabezados personalizados
 // con origen para 2 dominios
@@ -21,14 +21,12 @@ app.use(logger);
 
 
 
-
-
-
 // Rutas
 app.get("/", (req, res)=> {
     res.setHeader("Content-Type", "text/html");
     const landingHTML = `
-        <h1>Bienvenidos a nuestra API de Libros</h1>
+        <h1>Bienvenidos a nuestra API de Libros!</h1>
+        <p> He accedido en modo</p>
     `;
     res.send(landingHTML);
 })
