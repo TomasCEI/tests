@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
-import BookForm from './BookForm';
-import { easyFetch } from '../helpers/utils';
+import BookForm from '../../components/BookForm';
+import { easyFetch } from '../../helpers/utils';
 
 function BookList() {
   const [bookList, setBookList] = useState([]);

@@ -1,11 +1,24 @@
 
 
 import {useState, useEffect} from 'react';
+
+import { useContext } from "react";
+import {AuthContext} from "@/pages/Layout";
+
+
 import { useNavigate } from 'react-router-dom'; // redirige a donde querramos
-import { easyFetch } from '../helpers/utils';
+//import { easyFetch } from '../../helpers/utils';
+import { easyFetch } from '@/helpers/utils';
+
+
+// podríamos obtener el HOSTNAME para los fetch!
+const {VITE_NAME, VITE_MODE} = import.meta.env;
 
 
 function LoginForm() {
+
+    const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
+
 
     //const [formData, setFormData] = useState();
     //const {user, pass} = formData;
@@ -61,17 +74,22 @@ function LoginForm() {
         })
     }
 
-    const formStyle=  {
-        display: "flex",
-        flexDirection: "column"
-    }
+    // const formStyle=  {
+    //     display: "flex",
+    //     flexDirection: "column"
+    // }
 
     return (
       <>
         <form 
-        onSubmit={handleSubmit} 
-        style={formStyle}
+            onSubmit={handleSubmit} 
+            //style={formStyle}
+            className="flexColumn"
         >
+
+            {isLoggedIn && <h2>Ya estás logueado</h2>}
+            {!isLoggedIn && <h2>No estás logueado</h2>}
+            
             <label htmlFor="user">Usuario</label>
             <input type="text" id="user" name="user"
             
@@ -93,6 +111,10 @@ function LoginForm() {
             <input type="submit" value="enviar" />
         </form>
         {/* <button onClick={handleLogin}>Login</button> */}
+
+        <button onClick={()=> {
+            setIsLoggedIn(!isLoggedIn);
+        }} style={{marginTop: "20px"}}>Change LogIn</button>
       </>
     )
   }

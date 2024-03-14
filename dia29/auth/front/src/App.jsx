@@ -1,12 +1,16 @@
 import './App.css'
 import {Routes, Route, Outlet, Link} from "react-router-dom";
-import NotFound from './components/NotFound'
-import Navigation from './components/Navigation';
-import Home from './components/Home';
-import BookList from './components/BookList';
-import BookAdd from './components/BookAdd';
-import AuthorList from './components/AuthorList';
-import LoginForm from './components/LoginForm';
+//import Navigation from './components/Navigation';
+
+// paginas
+import NotFound from './pages/NotFound'
+import Home from './pages/Home';
+import BookList from './pages/BookList';
+import BookAdd from './pages/BookAdd';
+// usando el alias @ para importar
+import AuthorList from '@/pages/AuthorList';
+import Login from '@/pages/Login';
+import Layout from '@/pages/Layout';
 
 function App() {
   
@@ -20,7 +24,7 @@ function App() {
           <Route path="/agregar" element={<BookAdd />} /> 
           <Route path="/autores" element={<AuthorList />} /> 
 
-          <Route path="/login" element={<LoginForm />} /> 
+          <Route path="/login" element={<Login />} /> 
 
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -30,22 +34,22 @@ function App() {
   )
 }
 
-// plantilla de toda nuestra APP
-function Layout(){
-  return (
-    <>
+// // plantilla de toda nuestra APP
+// function Layout(){
+//   return (
+//     <>
       
-      <Navigation />
+//       <Navigation />
 
-      {/* El <Outlet> renderiza el Child que provenga del router */}
-      <div className="content">
-        <Outlet />
-      </div>
+//       {/* El <Outlet> renderiza el Child que provenga del router */}
+//       <div className="content">
+//         <Outlet />
+//       </div>
 
-      <footer className="footer">soy footer</footer>
-    </>
-  )
-}
+//       <footer className="footer">soy footer</footer>
+//     </>
+//   )
+// }
 
 
 export default App

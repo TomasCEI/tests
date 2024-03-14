@@ -1,11 +1,16 @@
-import mysql from 'mysql2/promise';
+import misDatos from '../db/seed.js';
+const Libros = misDatos.libros;
 
-// Create the connection to database
-export const mysqlConn = await mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    database: 'db_biblioteca',
-  });
+// import mysql from 'mysql2/promise';
+
+// // Create the connection to database
+// export const mysqlConn = await mysql.createConnection({
+//     host: 'localhost',
+//     user: 'root',
+//     database: 'db_biblioteca',
+//   });
+
+import mysqlConn from '../db/mysql.db.js';
 
 // formato de Respuesta
 const responseAPI = {
@@ -15,9 +20,10 @@ const responseAPI = {
 }
 
 export const seedLibros = async (req, res) => {
-    await Libros.truncate(); // vaciar tabla
-    const libros = await Libros.bulkCreate(listaLibros);
-    responseAPI.data=libros;
+    // version SEQUELIZER, cambiar a MySQL
+    // await Libros.truncate(); // vaciar tabla
+    // const libros = await Libros.bulkCreate(listaLibros);
+    // responseAPI.data=libros;
     responseAPI.msg="Lista de libros creada!";
     responseAPI.status="ok";
     res.status(200).send(responseAPI);
@@ -25,8 +31,8 @@ export const seedLibros = async (req, res) => {
 
 export const getAllLibros = async (req, res) => {
 
-    const consulta=`SELECT * FROM 'autores' 
-                    LEFT JOIN libros ON ('libros'.'id_autor' = autores.id)
+    const consulta=`SELECT * FROM libros
+                    LEFT JOIN autores ON (libros.id_autor = autores.id)
                     WHERE libros.deleted_at IS NULL`;
 
     const [results, fields ] = await mysqlConn.query(consulta);
@@ -56,8 +62,7 @@ export const createLibro = async(req, res) => {
 
     const sqlQuery= `INSERT INTO libros 
     (libro, id_autor, calificacion, lanzamiento, editorial, precio, cant_vendidos, num_paginas) 
-    VALUES  libros
-    ('${titulo}', '${id_autor}', '${cali}', '${lanzamiento}', '${editorial}', '${precio}', '${cant_vendidos}', '${num_paginas}');`;
+    VALUES  ('${titulo}', '${id_autor}', '${cali}', '${lanzamiento}', '${editorial}', '${precio}', '${cant_vendidos}', '${num_paginas}');`;
 
 
     const [newBook, fields ] = await mysqlConn.query(sqlQuery);

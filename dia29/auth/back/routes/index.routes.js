@@ -1,12 +1,16 @@
 import { Router} from 'express';
 import {seedLibros, getAllLibros, createLibro, getLibroById, updateLibro, deleteLibro} from '../controllers/libros.controller.js';
 
+import {loginUser, loginUserCrypted, registerUser} from '../controllers/auth.controller.js';
+import {seedUsers, getAllUsers, getUserById, updateUser, deleteUser} from '../controllers/users.controller.js';
+
 
 const router = Router();
 
 // todos los libros
 router.get(     "/libros",      getAllLibros);
-router.get (    "/libros/seed", seedLibros); // crear lista de libros base!
+router.get(     "/seed/libros", seedLibros);  // crear lista de libros base!
+router.get(     "/seed/users",  seedUsers);   // crear lista de usuarios base!
 
 // CRUD: Create Read Update Delete
 router.post(    "/libros",      createLibro);   // create
@@ -19,9 +23,19 @@ router.delete(  "/libros/:id",  deleteLibro);   // delete
 // queryParameter ?id
 
 
-// // todos
-// router.get( "/autores", getAllLibros);
+// Auth
+router.post(    "/auth/login",        loginUser); // login
+router.post(    "/auth/register",     registerUser); // register
+router.post(    "/auth/loginCrypted", loginUserCrypted); // login
 
+// Users
+// CRUD: Create Read Update Delete
+router.get(     "/users/",           getAllUsers);  // obtener todos
+router.get(     "/users/:id",        getUserById);  // obtener 1
+router.put(     "/users/:id",        updateUser);   // actualizar
+router.delete(  "/users/:id",        deleteUser);   // borrar
+
+// Autores
 // // CRUD: Create Read Update Delete
 // router.post(    "/autores",      createAutor);   // create
 // router.get(     "/autores/:id",  getAutorById);  // read

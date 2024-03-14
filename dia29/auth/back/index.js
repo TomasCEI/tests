@@ -7,7 +7,7 @@ import cors from 'cors'; // uso de cors mediante libreria externa
 
 
 const app = express();
-//console.clear();
+console.clear();
 
 // También puedes configurar CORS con métodos específicos y encabezados personalizados
 // con origen para 2 dominios
@@ -18,10 +18,6 @@ app.use(setHeaders);
 app.use(express.json()); // procesa el json body para leer con req.body()
 app.use(express.urlencoded({extended:false})); // leer datos de urlEncoded de req.body
 app.use(logger);
-
-
-
-
 
 
 // Rutas

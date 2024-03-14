@@ -49,3 +49,16 @@
   border-top: 2px solid #aaa;
   text-align:center;
 }
+
+/* Estilos Personalizados */
+.flexRow {
+  display:flex;
+  flex-direction:row;
+  gap: 5px;
+}
+
+.flexColumn {
+  display:flex;
+  flex-direction:column;
+  gap: 5px;
+}
