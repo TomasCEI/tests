@@ -1,12 +1,12 @@
-import '@/App.css'
+import './App.css'
 import {Routes, Route, Outlet, Link} from "react-router-dom";
 //import Navigation from './components/Navigation';
 
-// Páginas (mis componentes principales)
-import NotFound from '@/pages/NotFound'
-import Home from '@/pages/Home';
-import BookList from '@/pages/BookList';
-import BookAdd from '@/pages/BookAdd';
+// paginas
+import NotFound from './pages/NotFound'
+import Home from './pages/Home';
+import BookList from './pages/BookList';
+import BookAdd from './pages/BookAdd';
 // usando el alias @ para importar
 import AuthorList from '@/pages/AuthorList';
 import Login from '@/pages/Login';

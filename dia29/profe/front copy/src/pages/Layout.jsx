@@ -7,21 +7,21 @@ import {Routes, Route, Outlet, Link} from "react-router-dom";
 import Navigation from '../components/Navigation';
 
 export const AuthContext = createContext();
-export const ThemeContext = createContext();
 
 // plantilla de toda nuestra APP
 function Layout(){
 
-    const [theme, setTheme] = useState('light');
-
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     console.log("isLoggedIn", isLoggedIn);
+
     // use useContext to set if its logged in or not
     //const {isLoggedIn} = useContext(AuthContext);  
 
+
+
     return (
       <>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
         <AuthContext.Provider value={[isLoggedIn, setIsLoggedIn]}>
 
           <Navigation />
@@ -31,8 +31,7 @@ function Layout(){
           </div>
           <footer className="footer">soy footer</footer>
 
-        </AuthContext.Provider>    
-      </ThemeContext.Provider>    
+        </AuthContext.Provider>        
       </>
     )
   }

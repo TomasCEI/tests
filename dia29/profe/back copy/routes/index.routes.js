@@ -2,7 +2,6 @@ import { Router} from 'express';
 import {seedLibros, getAllLibros, createLibro, getLibroById, updateLibro, deleteLibro} from '../controllers/libros.controller.js';
 
 import {loginUser, loginUserCrypted, registerUser} from '../controllers/auth.controller.js';
-
 import {seedUsers, getAllUsers, getUserById, updateUser, deleteUser} from '../controllers/users.controller.js';
 
 

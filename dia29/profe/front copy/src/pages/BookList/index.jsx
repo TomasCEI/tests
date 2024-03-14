@@ -1,26 +1,16 @@
 import {useState, useEffect} from 'react';
 import BookForm from '../../components/BookForm';
 import { easyFetch } from '../../helpers/utils';
-import { useNavigate } from 'react-router-dom'; // redirige a donde querramos
-
 
 function BookList() {
   const [bookList, setBookList] = useState([]);
   const [editarLibro, setEditarLibro] = useState(null);
-
-const [isLoggedIn, setIsLoggedIn] = useContext(AuthContext);
 
   useEffect( ()=> {
     fetchLibros();
   }, [editarLibro]);
 
   const fetchLibros = async () => {
-
-    const navegator=useNavigate();
-
-    if(!isLoggedIn){
-      navegator("./login");
-    }
     /*
     try {
       const url="http://localhost:3000/API/v1/libros";

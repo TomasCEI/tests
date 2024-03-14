@@ -12,7 +12,7 @@ import { easyFetch } from '@/helpers/utils';
 
 
 // podríamos obtener el HOSTNAME para los fetch!
-const {VITE_NAME, VITE_MODE, VITE_BACKEND_URL} = import.meta.env;
+const {VITE_NAME, VITE_MODE} = import.meta.env;
 
 
 function LoginForm() {
@@ -59,17 +59,16 @@ function LoginForm() {
         e.preventDefault();
 
         easyFetch({
-            url: `${VITE_BACKEND_URL}/auth/login`,
+            url: "http://localhost:3000/API/v1/auth/login",
             method: 'POST', 
             body: JSON.stringify({user: user, pass: pass}),
             callback: (data) => {
                 console.log("EXITO loggedin!!! " , data);
 
                 if(data.success) {
-                    setIsLoggedIn(true);
                     navegador("/lista");
                 } else {
-                    alert("Datos inválidos: "+data.msg);
+                    alert("Datos inválidos");
                 }
             }
         })

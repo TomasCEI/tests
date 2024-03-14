@@ -8,12 +8,10 @@ const responseAPI = {
     status: "ok"
 }
 
+
 export const loginUser = async (req, res) => {
 
-    // const consulta=`SELECT * FROM usuarios 
-    //                 WHERE user='${req.body.user}' 
-    //                 AND password='${req.body.password}' 
-    //                 AND deleted_at IS NULL`;
+    //const consulta=`SELECT * FROM usuarios WHERE user='${req.body.user}' AND password='${req.body.password}' AND deleted_at IS NULL`;
     
     // obtenemos los datos del request
     const { user, password } = req.body;
@@ -24,18 +22,19 @@ export const loginUser = async (req, res) => {
     const [results, fields ] = await mysqlConn.query(consulta, params);
 
     // si no existe el usuario
-    if(!results.length){
+    if(results.length==0){
         responseAPI.msg="Usuario o clave incorrecto";
         responseAPI.status="error";
         res.status(400).send(responseAPI);
         return;
     }
 
+
     // devolvemos los datos del usuario
     responseAPI.data=results; // devuelve un array [{}]
-    responseAPI.debug_query=consulta; // OJO SOLO PARA DEBUG
-    responseAPI.debug_params=params; // OJO SOLO PARA DEBUG
-    responseAPI.msg="login de usuario correcto";
+    responseAPI.debug_query=consulta;
+    responseAPI.debug_params=params;
+    responseAPI.msg="login de usuario";
     responseAPI.status="ok";
     res.status(200).send(responseAPI);
 }
@@ -58,7 +57,7 @@ export const loginUserCrypted = async (req, res) => {
         return;
     }
     
-    console.log(bcrypt.hashSync(password, 10));
+    // console.log(bcrypt.hashSync("123456", 10));
     // console.log(bcrypt.hashSync("123456", 10));
     // console.log(bcrypt.hashSync("123456", 10));
     // console.log(bcrypt.hashSync("123456", 10));
@@ -78,7 +77,6 @@ export const loginUserCrypted = async (req, res) => {
     const db_user = results[0];
 
     console.log(db_user.password, password);
-
     const isPasswordValid = bcrypt.compareSync(password, db_user.password);
     
     if(!isPasswordValid){
@@ -108,24 +106,18 @@ export const registerUser = async(req, res) => {
         return;
     }
 
-    //const now = new Date(); // FECHA ACTUAL!
-    const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
-
-    // convierte mi clave...
+    const now = new Date();
     const encryptedPassword = bcrypt.hashSync(password, 10);
-    console.log(encryptedPassword);
-    
-    const sqlQuery= `INSERT INTO usuarios (user, password, updated_at, created_at) 
-                        VALUES ('${user}', '${encryptedPassword}', '${now}', '${now}');`;
+
+    const sqlQuery= `INSERT INTO usuarios (user, password, created_at) 
+                        VALUES ('${user}', '${encryptedPassword}', '${now}');`;
     const [result, fields ] = await mysqlConn.query(sqlQuery);
 
-    const lastId = result.insertId; // ultimo id insertado
+    const lastInsertId = result.insertId; // ultimo id insertado
 
-    const [newUser, newUserFields] = await mysqlConn.query('SELECT * FROM usuarios WHERE id = ?', [lastId] );
+    const [newUser, newUserFields] = await mysqlConn.query('SELECT * FROM usuarios WHERE id = ?', [lastInsertId] );
 
-    // eliminar ciertos elementos sensibles, antes de enviar al usuario
     delete newUser[0].password; // no devolvemos la clave encritada
-
 
     // Nuestra respuesta para MySQL o Sequelize
     responseAPI.data=newUser;

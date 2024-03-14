@@ -1,14 +1,6 @@
 # Backend de Libros
 
-Este backend en `express` utiliza la base de datos `MySQL` y el conector `mysql2`.
-
-Incluimos variables de entorno para el back y el front.
-
-## Librerias
-- `dotenv` para incluir archivos de variables de entorno.
-- utilizamos `bcrypt` para encriptar claves
-- 
-
+Este backend utiliza la base de datos `sqlLite` y el ORM `sequelizer`.
 
 ## Rutas posibles:
 

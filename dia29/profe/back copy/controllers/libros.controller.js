@@ -3,7 +3,7 @@ const Libros = misDatos.libros;
 
 // import mysql from 'mysql2/promise';
 
-// // // Create the connection to database
+// // Create the connection to database
 // export const mysqlConn = await mysql.createConnection({
 //     host: 'localhost',
 //     user: 'root',

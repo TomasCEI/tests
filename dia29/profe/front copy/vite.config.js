@@ -8,14 +8,10 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
 
-
   // alias para los imports
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
     },
   }
-
-
-
 })
