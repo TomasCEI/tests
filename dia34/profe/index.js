@@ -2,6 +2,7 @@ import express from "express";
 import cors from 'cors'; // uso de cors mediante libreria externa
 
 import mongoose from "mongoose";
+//const { Schema } = mongoose; // extraer schema para que quede mas corto
 
 const app = express();
 console.clear();
@@ -19,10 +20,10 @@ const dbConnect = async () => {
     const USER="tomassanchez";
     const PASS="kF2ecr3DIzfvVN54";
     const DB="cei";
-    //const url=`mongodb+srv://${USER}:${PASS}@cei-valencia.ulc7ujr.mongodb.net/${DB}`;
+    const url=`mongodb+srv://${USER}:${PASS}@cei-valencia.ulc7ujr.mongodb.net/${DB}`;
 
 
-    const url = `mongodb://127.0.0.1:27017/fullstack`;
+    //const url = `mongodb://127.0.0.1:27017/fullstack`;
 
     await mongoose.connect(url)
     .then ( ()=> console.log('Conectado a mongoDB'))
@@ -49,14 +50,38 @@ const options= {
 
 const alumnoSchema = new mongoose.Schema( {
     nombre: String,
-    //isAdmin: Boolean,
     edad: Number,
     hobbies: Array,
     ciudad: String
-}, options);
-
-
+}, {collection: 'alumnos'});
 const Alumno = mongoose.model('Alumno', alumnoSchema);
+
+
+const libroSchema = new mongoose.Schema({
+    titulo: String,
+    paginas: Number,
+    autor: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Alumno", // Referencia al modelo "Alumno"
+    }
+}, {collection: 'alumnos'});
+const Libro = mongoose.model("Libro", libroSchema);
+
+// Ruta para obtener todos los libros de un autor
+app.get("/autores/:id/libros", async (req, res) => {
+  try {
+      const idAutor= req.params.id;
+      console.log("id es:"+idAutor);
+      //const libros = await Libro.find({ autor: idAutor });
+      const libros = await Alumno.find();
+
+      //const libros = await Libro.find({ autores: autorEncontrado._id })
+
+    res.status(200).json(libros);
+  } catch (error) {
+    res.status(500).json({ error: "Error al obtener los libros" });
+  }
+});
 
 
 app.get('/', async (req, res, next) => {
@@ -195,10 +220,10 @@ const regex7 = /hola/ig; // combinación de flags
 // ejemplos:
 // Define la expresión regular para buscar la palabra "gato" en el título
 const regex = new RegExp('gato', 'i'); 
-const productosConGato1 = await Producto.find({
+const productosConGato1 = await Alumno.find({
     titulo: { $regex: regex }
   });
-const productosConGato2 = await Producto.find({
+const productosConGato2 = await Alumno.find({
     titulo: { $regex: /gato/i }
   });
 
@@ -280,3 +305,16 @@ Usuarios:
 app.listen(3000, () => {
     console.log(`server corriendo en http://localhost:3000`)
 })
+
+
+
+
+
+
+/*
+Joins en mongoose
+Libros + Autores
+*/
+
+
+
