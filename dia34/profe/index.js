@@ -171,6 +171,14 @@ app.get("/operadores", async (req, res, next) => {
 
 // --------- Uso de RegEx ------------
 
+// que es? 
+// buscar en un texto
+
+
+
+// para ver detalles
+// https://regexr.com/
+
 // Usando el constructor RegExp
 const regex1 = new RegExp('patrón');
 // Escribiendo la expresión regular directamente
@@ -184,7 +192,18 @@ const regex5 = /hola/g; // g es para que sea global
 const regex6 = /hola/m; // m es para que sea multiline
 const regex7 = /hola/ig; // combinación de flags
 
-// Metacaracteres $ y ^
+// ejemplos:
+// Define la expresión regular para buscar la palabra "gato" en el título
+const regex = new RegExp('gato', 'i'); 
+const productosConGato1 = await Producto.find({
+    titulo: { $regex: regex }
+  });
+const productosConGato2 = await Producto.find({
+    titulo: { $regex: /gato/i }
+  });
+
+
+// Metacaracteres $, ^, ., \w, \s
 
 const regex8 = /^hola/; // empieza por hola
 const texto = "Hola mundo\nHola amigos\nAdiós mundo";
@@ -197,6 +216,18 @@ const texto2 = "Hola mundo!\n¡Hola amigos!\nAdiós mundo";
 const coincidencias2 = texto.match(/!$/gm);
 console.log(coincidencias); // ["!", "!"]
 
+const regex10 = /ga.o/; // ga seguido de cualquier caracter y luego o
+
+const regex11 = /\w/; // cualquier caracter alfanumérico (no espacios, ni puntos)
+const regex12 = /\w{4,5}/; // cualquier caracter alfanumérico que tenga entre 4 y 5 caracteres
+const regex13 = /\s/; // cualquier espacio en blanco)
+const regex14 = /\S/; // cualquier caracter que NO sea espacio en blanco
+
+// Agrupar []
+const regex15 = /[aeiou]rbol/; // cualquier vocal seguida de rbol
+const regex16 = /[a-z]/; // cualquier letra minúscula
+const regex17 = /[A-Z]/; // cualquier letra mayúscula
+const regex18 = /[a-zA-Z0-9]/; // cualquier letra o número
 
 
 // test devuelve true o false
@@ -207,7 +238,42 @@ if (regex3.test(cadena1)) {
 }
 
 
+/*
 
+PetPlantDeco+mmerce
+Base de datos (MongoDB):
+
+Colección de productos:
+_id (ObjectId)
+Nombre (string)
+Descripción (string)
+Precio (number)
+Categoría (string)
+Imagen (string)
+Colección de usuarios:
+_id (ObjectId)
+Nombre (string)
+Email (string)
+Contraseña (string)
+Dirección (string)
+Teléfono (string)
+Endpoints:
+
+Productos:
+
+/productos (GET): Listar productos.
+/productos/filtrar (GET): Filtrar productos por categoría y precio.
+/productos/:id (GET): Obtener un producto por ID.
+/productos/carrito/agregar (POST): Agregar un producto al carrito.
+/productos/carrito/eliminar (POST): Eliminar un producto del carrito.
+/productos/carrito/modificar (POST): Modificar la cantidad de un producto en el carrito.
+Usuarios:
+
+/usuarios/registrar (POST): Registrar un usuario.
+/usuarios/login (POST): Iniciar sesión.
+/usuarios/info (GET): Obtener información del usuario.
+/usuarios/modificar (POST): Modificar información del usuario.
+*/
 
 
 // Alta de Servidor
