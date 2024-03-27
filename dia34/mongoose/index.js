@@ -11,6 +11,10 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
+
+
+app.use('/static', express.static('public'))
+
 const connect = async() =>{
     const DB_USER="tomassanchez";
     const DB_PASS="kF2ecr3DIzfvVN54";
