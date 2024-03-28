@@ -38,42 +38,69 @@ dbConnect();
 
 // Los esquemas Suele ir en archivo aparte
 
-const options= {
-    collection: 'alumnos', // nombre de la colección
-    // versionKey: '', // nombre del campo de versión vacío para no agregarla
-    strict: true,       // Opcional: solo guardar lo que está en el esquema
-    collation: {        // Opcional
-        locale: 'es',   // idioma
-        strength: 1     // (1) insensible / (2) sensibilidad de Mayúsculas y Minúsculas
-    }
-}
+// const options= {
+    //     collection: 'alumnos', // nombre de la colección
+    //     // versionKey: '', // nombre del campo de versión vacío para no agregarla
+    //     strict: true,       // Opcional: solo guardar lo que está en el esquema
+    //     collation: {        // Opcional
+    //         locale: 'es',   // idioma
+    //         strength: 1     // (1) insensible / (2) sensibilidad de Mayúsculas y Minúsculas
+    //     }
+// }
 
 const alumnoSchema = new mongoose.Schema( {
     nombre: String,
     edad: Number,
     hobbies: Array,
     ciudad: String
-}, {collection: 'alumnos'});
-const Alumno = mongoose.model('Alumno', alumnoSchema);
+}, {collection: 'usuarios'});
 
+const categoriaSchema = new mongoose.Schema({
+    nombre: {
+      type: String,
+      required: true
+    }
+  }, {collection: 'categorias'});
 
 const libroSchema = new mongoose.Schema({
     titulo: String,
     paginas: Number,
     autor: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Alumno", // Referencia al modelo "Alumno"
-    }
-}, {collection: 'alumnos'});
+        ref: 'Alumno', // Reference to the Alumno model
+      },
+    // Array of ObjectIds referencing categorias
+      categorias: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Categoria'
+      }]
+}, {collection: 'libros'});
+
+
+// crear los modelos
 const Libro = mongoose.model("Libro", libroSchema);
+const Categoria = mongoose.model('Categoria', categoriaSchema);
+const Alumno = mongoose.model('Alumno', alumnoSchema);
 
 // Ruta para obtener todos los libros de un autor
 app.get("/autores/:id/libros", async (req, res) => {
+    const idAutor= req.params.id;
+
+    // const newLibro = new Libro({
+    //     titulo: 'Example Book2',
+    //     autor: idAutor // Assuming userId is the ObjectId of the Usuario who authored the book
+    //   });
+     
+    // await newLibro.save();
+
+    // // devuelvo el nuevo alumno
+    // res.json(newLibro);
+    //   return;
+
   try {
-      const idAutor= req.params.id;
       console.log("id es:"+idAutor);
-      //const libros = await Libro.find({ autor: idAutor });
-      const libros = await Alumno.find();
+      const libros = await Libro.find({ idAutor: idAutor });
+      //const libros = await Alumno.find();
 
       //const libros = await Libro.find({ autores: autorEncontrado._id })
 
@@ -83,6 +110,13 @@ app.get("/autores/:id/libros", async (req, res) => {
   }
 });
 
+app.get("/crearCategorias", async (req, res)=> {
+    // Create categorias
+    const categoria1 = await Categoria.create({ nombre: 'Ficción' });
+    const categoria2 = await Categoria.create({ nombre: 'Ciencia Ficción' });
+    const categoria3 = await Categoria.create({ nombre: 'Aventura' });
+    res.send("Categorias creadas");
+});
 
 app.get('/', async (req, res, next) => {
     const datos= await Alumno.find();
