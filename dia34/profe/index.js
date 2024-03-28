@@ -100,13 +100,29 @@ app.get("/id/:id", async (req, res, next) => {
 });
 
 // obtener por nombre
-app.get("/alu/:nombre", async (req, res, next) => {
+app.get("/alu1/:nombre", async (req, res, next) => {
     const { nombre } = req.params; 
     const alumno = await Alumno.findOne({nombre: nombre});
     res.json(alumno);
 
     // const buscarPorId = await Alumno.find({"_id":"66006a4483a82ec570e0b681"}).select({hobbies:0});
 });
+
+app.get("/alu2/:nombre", async (req, res, next) => {
+    const { nombre } = req.params;
+    // Crear una expresión regular con el string del nombre
+    const regexNombre = new RegExp(nombre, "i"); // "i" para hacer la búsqueda insensible a mayúsculas y minúsculas
+    // Realizar la búsqueda con la expresión regular
+    const alumnos = await Alumno.find({ nombre: regexNombre });
+    res.json(alumnos);
+});
+app.get("/alu3/:nombre", async (req, res, next) => {
+    const { nombre } = req.params;
+    // Utilizar $regex en la consulta de Mongoose para buscar el nombre que coincida con la expresión regular
+    const alumnos = await Alumno.find({ nombre: { $regex: nombre, $options: 'i' } });
+    res.json(alumnos);
+});
+
 
 /*
 app.get('/new', async (req, res, next) => {
