@@ -1,8 +1,10 @@
 import express from "express";
 import {PORT, fullDomain} from "./config/config.js";
 import { setHeaders } from "./middlewares/setHeaders.js";
+import indexRoutes from './routes/index.routes.js';
 import cors from 'cors'; // uso de cors mediante libreria externa
-import multer from "multer";
+
+import { upload } from "./middlewares/multer.js";
 
 const app = express();
 console.clear();
@@ -18,6 +20,7 @@ app.use(setHeaders);
 app.use(express.json()); // procesa el json body para leer con req.body()
 app.use(express.urlencoded({extended:false})); // leer datos de urlEncoded de req.body
 
+
 // Rutas
 app.get("/", (req, res)=> {
     res.setHeader("Content-Type", "text/html");
@@ -27,26 +30,6 @@ app.get("/", (req, res)=> {
     res.send(landingHTML);
 })
 
-
-// Uso de Multer para upload de archivos
-// https://expressjs.com/en/resources/middleware/multer.html
-
-// Opción 1: Datos mínimos, el archivo destino tendrá unun nombre aleatorio sin extensión
-// const upload = multer({ dest: 'uploads/' });
-
-// Opción 2: Datos completos, el archivo destino conservará el nombre original o podremos manipularlo
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-        // utilizando storage para renombrar el archivo
-        cb(null, file.originalname);
-        //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        //   cb(null, file.fieldname + '-' + uniqueSuffix)
-    }
-})
-const upload = multer({ storage: storage })
 
 // Upload desde un formulario HTML
 app.post("/upload", upload.single('profile'), (req, res) => {
@@ -67,9 +50,20 @@ app.post("/upload", upload.single('profile'), (req, res) => {
     }
 });
 
+
+app.use("/API/v1/", indexRoutes);
+
 app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(500).send({"error":'Something broke!', msg: err, code: 500})
+    console.error(err.stack);
+
+    const responseAPI = {
+        status: "error",
+        msg: "Error en la API",
+        error: err.message,
+        code: 500
+    }
+
+    res.status(500).send(responseAPI)
 })
 
 
