@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// usando vercel postgress
+// datasource db {
+//   provider = "postgresql"
+//   url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+//   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+// }
+
+datasource db {
+  //   provider = "sqlite"
+  //   url      = "file:./dev.db"
+  provider = "mysql"
+  //   provider = "mongodb"
+  // provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Post {
+  id          Int     @id @default(autoincrement())
+  //id        String  @id @default(uuid())
+  //id        String  @id @default(cuid())
+  title       String
+  body        String?
+  userId      Int?
+  isPublicado Boolean @default(false)
+  User        User?   @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  //id      String   @id @default(uuid())
+  //id      String   @id @default(cuid())
+  name      String?
+  username  String?
+  email     String?  @unique
+  website   String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  posts     Post[]
+
+  @@map(name: "users")
+}
