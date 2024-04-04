@@ -54,11 +54,6 @@ Mostrar como se pueden obtener los datos de la API en el cliente, y como se pued
 - crear el archivo `src/app/api/posts/[id]/route.js` y mostrar el uso de GET(req, {params}) para obtener le id de un único post.
 - Incluir funciones de POST/PUT/DELETE para mostrar como se pueden hacer las distintas operaciones con thunderclient.
 
-## 5. Server Actions (NO)
-
-// /app/lib/actions.js
-// 'use server'; 
-// export async function createInvoice(formData: FormData) {}
 
 ## 6. Instalación de Prisma
 
@@ -83,6 +78,90 @@ Mostrar como se pueden obtener los datos de la API en el cliente, y como se pued
 - Ir a https://www.db4free.net/
 
 Cambiar la URL de la base de datos y listo.
+Recordar hacer un backup
+
+
+
+
+## 5. Server Actions (Saltearselo y verlo al final de la clase si sobra tiempo)
+
+// /app/lib/actions.js
+// 'use server'; 
+// export async function createInvoice(formData: FormData) {}
+
+
+https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations
+Ver forms también
+You can also pass a Server Action to a Client Component as a prop:
+<ClientComponent updateItem={updateItem} />
+
+
+ej: https://fajarwz.com/blog/simple-full-stack-crud-with-nextjs-14-postgresql-and-prisma/
+
+    import { handleEditClinica } from "@/lib/actions/clinicas";
+   const onSubmit = async (data) => {
+      data.prevData = item;
+      await handleEditClinica({ data, labId }); // call the server action
+   }
+
+```js
+"use server";
+
+import { prisma, apiUrl } from "@/lib/db/prisma";
+import { redirect } from "next/navigation"; // redirige al usuario a otra url
+import { revalidatePath } from "next/cache";
+
+export async function handleEditCard(data, labId) {
+   //console.log("prevState es:", prevState);
+   console.log("data es:", data);
+   console.log("labId es:", labId);
+   // prevData tiene toda la info previa a los cambios de la tarjeta
+   const CardId = data.prevData.id;
+
+   const prismaData = {
+      title: data.title,
+      description: data.info,
+      statusID: data.cardEstado?.value || null,
+   };
+
+   if (CardId) {
+      // Edito Tarjeta
+      const card = await prisma.entities.update({
+         where: {
+            id: CardId,
+         },
+         data: prismaData,
+      });
+   } else {
+      // Creo Tarjeta
+      prismaData.laboratorioID = Number(labId);
+      const card = await prisma.entities.create({
+         data: prismaData,
+      });
+   }
+
+   console.log("haciendo delay de 1 seg en cards.jsx");
+   await new Promise((resolve) => setTimeout(resolve, 1000));
+   revalidatePath("/");
+   return { message: `Edited card ${data.title}` };
+}
+
+export const getCardsAPI = async (labId) => {
+
+   // enviar el labid como request param
+   const res = await fetch(`${apiUrl}/${labId}/trello`, {
+      cache: "no-store",
+   });
+   if (!res.ok) {
+      //console.log("res es ", res);
+      throw new Error("Failed to fetch Users with API");
+   }
+   const dbData = await res.json();
+   return dbData.data;
+};
+
+```
+
 
 ## Siguientes pasos
 - Login, Auth, MiddleWares, upload de imagenes, comentarios + Likes, Markdown.
